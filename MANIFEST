@@ -1,4 +1,5 @@
 Build.PL
+CHANGES
 INSTALL
 LICENSE
 MANIFEST
@@ -18,6 +19,7 @@ lib/DBIx/Class/Schema/AuditLog/Structure/Field.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/User.pm
 t/01_deploy.t
 t/02_cud.t
+t/03_get_changes.t
 t/lib/AuditTest/Schema.pm
 t/lib/AuditTest/Schema/Result/User.pm
 t/release-pod-syntax.t

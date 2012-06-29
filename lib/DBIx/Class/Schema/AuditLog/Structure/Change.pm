@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Change;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Change::VERSION = '0.1.0';
+  $DBIx::Class::Schema::AuditLog::Structure::Change::VERSION = '0.2.1';
 }
 
 use base 'DBIx::Class::Core';
@@ -61,7 +61,7 @@ DBIx::Class::Schema::AuditLog::Structure::Change
 
 =head1 VERSION
 
-version 0.1.0
+version 0.2.1
 
 =head1 AUTHOR
 
