@@ -5,7 +5,7 @@ use base qw/DBIx::Class/;
 use strict;
 use warnings;
 
-our $VERSION = '0.020010';
+our $VERSION = '0.002002';
 
 
 sub insert {
@@ -148,7 +148,7 @@ DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 =head1 VERSION
 
-version 0.2.1
+version 0.2.2
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 

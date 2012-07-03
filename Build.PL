@@ -21,7 +21,7 @@ my %module_build_args = (
     "Mark Jubenville <ioncache\@gmail.com>"
   ],
   "dist_name" => "DBIx-Class-AuditLog",
-  "dist_version" => "0.2.1",
+  "dist_version" => "0.2.2",
   "license" => "perl",
   "module_name" => "DBIx::Class::AuditLog",
   "recommends" => {},
