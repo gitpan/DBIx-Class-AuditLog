@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.2.2';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.2.3';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -109,27 +109,35 @@ sub get_changes {
     my $self    = shift;
     my $options = shift;
 
-    my $audited_row = $options->{id} ;
-    my $table_name  = $options->{table};
-    my $field_name  = $options->{field};
-    my $action_types = $options->{action_types} || [ 'insert', 'update', 'delete' ];
+    my $audited_row  = $options->{id};
+    my $change_order = $options->{change_order} || 'desc';
+    my $field_name   = $options->{field};
+    my $table_name   = $options->{table};
+    my $timestamp    = $options->{timestamp};
+    my $action_types = $options->{action_types}
+        || [ 'insert', 'update', 'delete' ];
 
+    # row and table are required for all changes
     return if !$audited_row || !$table_name;
 
-    my $schema = $self;
-
-    my $table
-        = $schema->resultset('AuditLogAuditedTable')
+    my $table = $self->resultset('AuditLogAuditedTable')
         ->find( { name => $table_name, } );
 
-    my $actions
-        = $schema->resultset('AuditLogChangeset')->search_related(
+    # cannot get changes if the specified table hasn't been logged
+    return unless defined $table;
+
+    my $changeset_criteria = {};
+    $changeset_criteria->{timestamp} = $timestamp if $timestamp;
+    my $changesets = $self->resultset('AuditLogChangeset')
+        ->search_rs( $changeset_criteria );
+
+    my $actions = $changesets->search_related(
         'Action',
         {   audited_table => $table->id,
             audited_row   => $audited_row,
             type          => $action_types,
         }
-        ) if $table;
+    );
 
     if ( $actions && $actions->count ) {
         my $field = $table->find_related( 'Field', { name => $field_name } )
@@ -138,11 +146,8 @@ sub get_changes {
         my $criteria = {};
         $criteria->{field} = $field->id if $field;
 
-        my $changes = $actions->search_related(
-            'Change',
-            $criteria,
-            { order_by => 'me.id desc', }
-        );
+        my $changes = $actions->search_related( 'Change', $criteria,
+            { order_by => 'me.id ' . $change_order, } );
         return $changes;
     }
 
@@ -160,7 +165,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.2.2
+version 0.2.3
 
 =head2 current_changeset
 
@@ -194,8 +199,18 @@ Required:
             for databases that have multiple schemas
 
 Optional:
-    field: name of the field that was audited
     action_types: array ref of action types: [ delete, insert, update ]
+    change_order: sets the order to return the results, either asc, or desc
+                  defaults to desc
+    field: name of the field that was audited
+    timestamp: timestamp of the changeset to search by
+               takes a standard dbic where clause for a field,
+               eg:
+                   '2012-07-09-15.25.18'
+                or
+                   { '>=' , '2012-07-09-15.25.18; }
+               the timestamp must already be in the format that the
+               database stores in
 
 =head1 AUTHOR
 
