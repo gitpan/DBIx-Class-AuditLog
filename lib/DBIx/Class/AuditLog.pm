@@ -1,11 +1,12 @@
 package DBIx::Class::AuditLog;
+{
+  $DBIx::Class::AuditLog::VERSION = '0.2.4';
+}
 
 use base qw/DBIx::Class/;
 
 use strict;
 use warnings;
-
-our $VERSION = '0.002002';
 
 
 sub insert {
@@ -148,7 +149,7 @@ DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 =head1 VERSION
 
-version 0.2.3
+version 0.2.4
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 
