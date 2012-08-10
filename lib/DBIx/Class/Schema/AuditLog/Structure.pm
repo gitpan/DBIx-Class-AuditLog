@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.2.4';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.2.5';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -165,7 +165,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.2.4
+version 0.2.5
 
 =head2 current_changeset
 
