@@ -13,6 +13,7 @@ lib/DBIx/Class/Schema/AuditLog.pm
 lib/DBIx/Class/Schema/AuditLog/Structure.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Action.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/AuditedTable.pm
+lib/DBIx/Class/Schema/AuditLog/Structure/Base.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Change.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Changeset.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Field.pm

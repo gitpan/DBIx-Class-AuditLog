@@ -1,6 +1,6 @@
 package DBIx::Class::AuditLog;
 {
-  $DBIx::Class::AuditLog::VERSION = '0.2.5';
+  $DBIx::Class::AuditLog::VERSION = '0.2.6';
 }
 
 use base qw/DBIx::Class/;
@@ -33,12 +33,13 @@ sub update {
     my $stored_row = $self->get_from_storage;
     my %old_data   = $stored_row->get_columns;
     my %new_data   = $self->get_dirty_columns;
+    my @changed_columns = keys %{$_[0]||{}};
 
     my $result = $self->next::method(@_);
 
     # find list of passed in update values when $row->update({...}) is used
-    if ( my $updated_column_set = $_[0] ) {
-        @new_data{ keys %$updated_column_set } = values %$updated_column_set;
+    if ( @changed_columns ) {
+        @new_data{ @changed_columns } = map $self->get_column($_), @changed_columns;
     }
 
     foreach my $key ( keys %new_data ) {
@@ -151,7 +152,7 @@ DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 =head1 VERSION
 
-version 0.2.5
+version 0.2.6
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 
