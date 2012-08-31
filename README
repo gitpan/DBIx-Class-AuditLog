@@ -51,9 +51,14 @@ DESCRIPTION
     Actions. An Action can be of type insert/update/delete. Actions can have
     many Changes. Changes show the data that was changed during an action.
 
-    By default all columns will be audited in any table where the AuditLog
-    component is loaded.
+    By default all updated columns will be audited in any table where the
+    AuditLog component is loaded.
 
+ADDITIONAL DBIC COLUMN ATTRIBUTES
+    Individual columns can have additional attributes added to change the
+    Audit Log functionality.
+
+  audit_log_column
     On an individual column basis you can disable auditing by setting
     'audit_log_column' to 0:
 
@@ -74,6 +79,74 @@ DESCRIPTION
             "+admin_id",
             { audit_log_column => 0, }
         );
+
+  force_audit_log_column
+    By default, columns are only audited if their value changed. It is
+    possible to force auditing on a per-column basis by setting
+    'force_audit_log_column' to 1:
+
+        __PACKAGE__->add_columns(
+            "+admin_id",
+            { force_audit_log_column => 1, }
+        );
+
+    If auditing is forced for a column, the 'audit_log_column' attribute is
+    ignored.
+
+  modify_audit_value
+    It is possible to modify the values stored by DBIC::AuditLog on a
+    per-column basis by setting the 'modify_audit_value' attibute to either
+    a CodeRef, a method name or any true value. The configured code will be
+    run as an object method of the current DBIC::Result object, and expects
+    the original value as parameter.
+
+    If 'modify_audit_value' is set to a true value which is NOT a method in
+    the current objects class, AuditLog will look for a method called
+    'modify_audit_$colname', where $colname is the name of the corresponding
+    column.
+
+    Note: AuditLog will simply die if it can not find the modification
+    method while 'modify_audit_value' is true.
+
+   EXAMPLES:
+    The following examples have the same result:
+
+    *   passing a coderef:
+
+            __PACKAGE__->add_columns(
+                "+name",
+                { modify_audit_value => sub{
+                    my ($self, $value) = @_;
+                    $value =~ tr/A-Z/a-z/;
+                    return $value;
+                }, }
+            );
+
+    *   passing a method name:
+
+            __PACKAGE__->add_columns(
+                "+name",
+                { modify_audit_value => 'to_lowercase'}, 
+            );
+        
+            sub to_lowercase{
+                my ($self, $value) = @_;
+                $value =~ tr/A-Z/a-z/;
+                return $value;
+            }
+
+    *   passing a true value which is NOT a method name:
+
+            __PACKAGE__->add_columns(
+                "+name",
+                { modify_audit_value => 1}, 
+            );
+        
+            sub modify_audit_name{
+                my ($self, $value) = @_;
+                $value =~ tr/A-Z/a-z/;
+                return $value;
+            }
 
 TABLE STRUCTURE
     The AuditLog schema is a self-contained schema that keeps no

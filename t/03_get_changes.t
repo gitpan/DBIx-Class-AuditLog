@@ -93,4 +93,11 @@ foreach my $field (@change_fields) {
     );
 }
 
+is $al_schema->resultset("AuditLogField")->search( { name => "email" } )
+    ->count, 0, "Email field hasn't been added to AuditLogField table.";
+
+my $change = $al_schema->get_changes(
+    { id => $test_user->id, table => 'user', field => "email" } );
+is $change->count, 0, "Getting changes on field 'email' returns 0 when calling get_changes.";
+
 done_testing();
