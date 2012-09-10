@@ -108,45 +108,44 @@ ADDITIONAL DBIC COLUMN ATTRIBUTES
     Note: AuditLog will simply die if it can not find the modification
     method while 'modify_audit_value' is true.
 
-   EXAMPLES:
     The following examples have the same result:
 
-    *   passing a coderef:
+    passing a coderef:
 
-            __PACKAGE__->add_columns(
-                "+name",
-                { modify_audit_value => sub{
-                    my ($self, $value) = @_;
-                    $value =~ tr/A-Z/a-z/;
-                    return $value;
-                }, }
-            );
-
-    *   passing a method name:
-
-            __PACKAGE__->add_columns(
-                "+name",
-                { modify_audit_value => 'to_lowercase'}, 
-            );
-        
-            sub to_lowercase{
+        __PACKAGE__->add_columns(
+            "+name",
+            { modify_audit_value => sub{
                 my ($self, $value) = @_;
                 $value =~ tr/A-Z/a-z/;
                 return $value;
-            }
+            }, }
+        );
 
-    *   passing a true value which is NOT a method name:
+    passing a method name:
 
-            __PACKAGE__->add_columns(
-                "+name",
-                { modify_audit_value => 1}, 
-            );
+        __PACKAGE__->add_columns(
+            "+name",
+            { modify_audit_value => 'to_lowercase'}, 
+        );
         
-            sub modify_audit_name{
-                my ($self, $value) = @_;
-                $value =~ tr/A-Z/a-z/;
-                return $value;
-            }
+        sub to_lowercase{
+            my ($self, $value) = @_;
+            $value =~ tr/A-Z/a-z/;
+            return $value;
+        }
+
+    passing a true value which is NOT a method name:
+
+        __PACKAGE__->add_columns(
+            "+name",
+            { modify_audit_value => 1}, 
+        );
+        
+        sub modify_audit_name{
+            my ($self, $value) = @_;
+            $value =~ tr/A-Z/a-z/;
+            return $value;
+        }
 
 TABLE STRUCTURE
     The AuditLog schema is a self-contained schema that keeps no
@@ -166,10 +165,10 @@ TABLE STRUCTURE
         +-------------------------+
 
     User
-        This table contains a unique list of users that have executed
-        transactions. The 'name' field is used to store the User identifier.
-        This could be used for a user's name or id or other unique
-        identifier as needed.
+        The AuditLogUser table contains a unique list of users that have
+        executed transactions. The 'name' field is used to store the User
+        identifier. This could be used for a user's name or id or other
+        unique identifier as needed.
 
         This table does not get a relationship to any table in your main
         schema.

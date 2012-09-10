@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.3.0';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.3.1';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -143,10 +143,13 @@ sub get_changes {
         my $field = $table->find_related( 'Field', { name => $field_name } )
             if $field_name;
 
-        # if the passed field wasn't found in the Field table set field id
-        # to -1 to ensure a $changes object with ->count = 0 is returned
+        # if field is passed and the passed field wasn't found in the Field
+        # table set field id to -1 to ensure a $changes object with ->count =
+        # 0 is returned
         my $criteria = {};
-        $criteria->{field} = $field ? $field->id : -1;
+        if ( $field_name ) {
+            $criteria->{field} = $field ? $field->id : -1;
+        }
 
         my $changes = $actions->search_related( 'Change', $criteria,
             { order_by => 'me.id ' . $change_order, } );
@@ -167,7 +170,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.3.0
+version 0.3.1
 
 =head2 current_changeset
 

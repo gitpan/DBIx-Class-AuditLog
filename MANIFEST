@@ -18,11 +18,12 @@ lib/DBIx/Class/Schema/AuditLog/Structure/Change.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Changeset.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/Field.pm
 lib/DBIx/Class/Schema/AuditLog/Structure/User.pm
-t/01_deploy.t
-t/02_cud.t
-t/03_get_changes.t
-t/04_force_auditlog.t
-t/05_modify_audit_value.t
+t/001_deploy.t
+t/002_cud.t
+t/003_get_changes.t
+t/004_force_auditlog.t
+t/005_modify_audit_value.t
+t/006_resultsets.t
 t/lib/AuditTest/Schema.pm
 t/lib/AuditTest/Schema/Result/User.pm
 t/lib/AuditTest/Schema/Result/UserForceaudit.pm
