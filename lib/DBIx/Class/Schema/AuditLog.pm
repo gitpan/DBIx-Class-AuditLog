@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog;
 {
-  $DBIx::Class::Schema::AuditLog::VERSION = '0.3.1';
+  $DBIx::Class::Schema::AuditLog::VERSION = '0.4.0';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -78,6 +78,21 @@ sub txn_do {
     return $self->next::method( $code, @args );
 }
 
+
+sub audited_sources{
+	my $self = shift;
+	grep { $self->class($_)->isa("DBIx::Class::AuditLog") }
+		$self->sources;
+}
+	
+
+sub audited_source {
+	my $source = shift->source(@_);
+
+	return $source if $source && $source->isa("DBIx::Class::AuditLog");
+	return 0;
+}
+
 sub find_or_create_audit_log_schema_template {
     my $self = shift;
 
@@ -114,6 +129,7 @@ sub find_or_create_audit_log_schema_template {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -122,7 +138,7 @@ DBIx::Class::Schema::AuditLog
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4.0
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 
@@ -136,13 +152,28 @@ Wraps the DBIx::Class txn_do method with a new changeset whenever required.
 
 =head1 HELPER METHODS
 
+=head2 audited_sources
+
+returns the list of sourcenames which have DBIx::Class::AuditLog loaded
+
+=head2 audited_source
+
+=over
+
+=item Arguments: $source_name
+
+=back
+
+Like L<DBIx::Class::Schema/source>, but returns 0 if the resulting source does not have
+AuditLog loaded
+
 =head2 find_or_create_audit_log_schema_template
 
 Finds or creates a new schema object using the AuditLog tables.
 
 =head1 AUTHOR
 
-Mark Jubenville <ioncache@gmail.com>
+Mark Jubenville <ioncache@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -152,4 +183,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

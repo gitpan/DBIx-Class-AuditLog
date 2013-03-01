@@ -18,6 +18,28 @@ SYNOPSIS
  
         __PACKAGE__->load_components(qw/AuditLog/);
 
+    If you want to use methods created by DBIx::Class::Relationship::Base,
+    like "add_to_$rel" or "set_$rel", if you are planing to use "delete" in
+    DBIx::Class::ResultSet or "update" in DBIx::Class::ResultSet or if you
+    use modules which make use of these methods (like HTML::FormHandler or
+    DBIx::Class::ResultSet::RecursiveUpdate, load the AuditLog-component in
+    your ResultSet classes:
+
+     package My::Schema::ResultSet::Table;
+
+
+     use base 'DBIx::Class::ResultSet';
+
+     ...
+
+     __PACKAGE__->load_components('ResultSet::AuditLog');
+
+     1;
+
+    If you need auditing in all your tables, an alternative way is to set
+    "DBIC::ResultSet::AuditLog" as your default resultset class in
+    load_components. See DBIx::Class::ResultSet::AuditLog for details.
+
     In your application wrap any insert/update/delete in a transaction to
     have audit logging activated:
 
@@ -206,6 +228,10 @@ TABLE STRUCTURE
         An AuditLogAction is an insert/update/delete belonging to a
         Changeset. It is also owned by Table.
 
+        If the corresponding table has more than one primary key, the
+        pk-values stored in 'audited_row' are joined with a '-'. (See action
+        with id 11 below.)
+
             mysql> select * from audit_log_action order by id;
             +----+-----------+---------------+-------------+--------+
             | id | changeset | audited_table | audited_row | type   |
@@ -220,6 +246,7 @@ TABLE STRUCTURE
             |  8 |         5 |             1 |           9 | update |
             |  9 |         6 |             1 |          13 | insert |
             | 10 |         6 |             1 |          13 | update |
+            | 11 |         7 |             2 |        3-10 | insert |
             +----+-----------+---------------+-------------+--------+
             10 rows in set (0.00 sec)
 
@@ -347,7 +374,10 @@ ACKNOWLEDGEMENTS
     Many ideas and code borrowed from DBIx::Class::Journal.
 
 AUTHOR
-    Mark Jubenville (ioncache <mailto:ioncache@gmail.com>)
+    Mark Jubenville (ioncache <mailto:ioncache@cpan.org>)
+
+CONTRIBUTORS
+    Lukas Thiemeier (lukast <mailto:lukast@cpan.org>)
 
 COPYRIGHT AND LICENCE
     This software is copyright (c) 2012 by Mark Jubenville.

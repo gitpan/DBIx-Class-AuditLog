@@ -8,6 +8,7 @@ use Module::Build 0.3601;
 my %module_build_args = (
   "build_requires" => {
     "DBICx::TestDatabase" => 0,
+    "DBIx::Class::ResultSet::RecursiveUpdate" => 0,
     "Module::Build" => "0.3601",
     "Test::More" => 0,
     "utf8" => 0
@@ -18,10 +19,10 @@ my %module_build_args = (
   },
   "dist_abstract" => "Simple activity audit logging for DBIx::Class",
   "dist_author" => [
-    "Mark Jubenville <ioncache\@gmail.com>"
+    "Mark Jubenville <ioncache\@cpan.org>"
   ],
   "dist_name" => "DBIx-Class-AuditLog",
-  "dist_version" => "0.3.1",
+  "dist_version" => "0.4.0",
   "license" => "perl",
   "module_name" => "DBIx::Class::AuditLog",
   "recommends" => {},
@@ -30,6 +31,7 @@ my %module_build_args = (
     "Class::C3::Componentised" => 0,
     "DBIx::Class" => 0,
     "DBIx::Class::Core" => 0,
+    "DBIx::Class::ResultSet" => 0,
     "DBIx::Class::Schema" => 0,
     "DBIx::Class::TimeStamp" => 0,
     "Scalar::Util" => 0,

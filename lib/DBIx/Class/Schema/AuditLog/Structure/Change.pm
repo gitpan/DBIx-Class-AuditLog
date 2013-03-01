@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Change;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Change::VERSION = '0.3.1';
+  $DBIx::Class::Schema::AuditLog::Structure::Change::VERSION = '0.4.0';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -53,6 +53,7 @@ __PACKAGE__->belongs_to(
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -61,11 +62,11 @@ DBIx::Class::Schema::AuditLog::Structure::Change
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4.0
 
 =head1 AUTHOR
 
-Mark Jubenville <ioncache@gmail.com>
+Mark Jubenville <ioncache@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -75,4 +76,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

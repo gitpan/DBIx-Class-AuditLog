@@ -10,9 +10,10 @@ use ExtUtils::MakeMaker 6.30;
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Simple activity audit logging for DBIx::Class",
-  "AUTHOR" => "Mark Jubenville <ioncache\@gmail.com>",
+  "AUTHOR" => "Mark Jubenville <ioncache\@cpan.org>",
   "BUILD_REQUIRES" => {
     "DBICx::TestDatabase" => 0,
+    "DBIx::Class::ResultSet::RecursiveUpdate" => 0,
     "Module::Build" => "0.3601",
     "Test::More" => 0,
     "utf8" => 0
@@ -29,6 +30,7 @@ my %WriteMakefileArgs = (
     "Class::C3::Componentised" => 0,
     "DBIx::Class" => 0,
     "DBIx::Class::Core" => 0,
+    "DBIx::Class::ResultSet" => 0,
     "DBIx::Class::Schema" => 0,
     "DBIx::Class::TimeStamp" => 0,
     "Scalar::Util" => 0,
@@ -36,7 +38,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.3.1",
+  "VERSION" => "0.4.0",
   "test" => {
     "TESTS" => "t/*.t"
   }
