@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Action;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Action::VERSION = '0.4.0';
+  $DBIx::Class::Schema::AuditLog::Structure::Action::VERSION = '0.4.1';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -25,8 +25,9 @@ __PACKAGE__->add_columns(
         'is_nullable' => 0,
     },
     'audited_row' => {
-        'data_type'   => 'tinytext',
+        'data_type'   => 'varchar',
         'is_nullable' => 0,
+        'size'        => 255,
     },
     'type' => {
         'data_type'   => 'varchar',
@@ -67,7 +68,7 @@ DBIx::Class::Schema::AuditLog::Structure::Action
 
 =head1 VERSION
 
-version 0.4.0
+version 0.4.1
 
 =head1 AUTHOR
 

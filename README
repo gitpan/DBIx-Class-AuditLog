@@ -30,7 +30,6 @@ SYNOPSIS
 
      use base 'DBIx::Class::ResultSet';
 
-     ...
 
      __PACKAGE__->load_components('ResultSet::AuditLog');
 
@@ -137,10 +136,10 @@ ADDITIONAL DBIC COLUMN ATTRIBUTES
         __PACKAGE__->add_columns(
             "+name",
             { modify_audit_value => sub{
-                my ($self, $value) = @_;
-                $value =~ tr/A-Z/a-z/;
-                return $value;
-            }, }
+            my ($self, $value) = @_;
+            $value =~ tr/A-Z/a-z/;
+            return $value;
+        }, }
         );
 
     passing a method name:
@@ -149,7 +148,7 @@ ADDITIONAL DBIC COLUMN ATTRIBUTES
             "+name",
             { modify_audit_value => 'to_lowercase'}, 
         );
-        
+    
         sub to_lowercase{
             my ($self, $value) = @_;
             $value =~ tr/A-Z/a-z/;
@@ -162,7 +161,7 @@ ADDITIONAL DBIC COLUMN ATTRIBUTES
             "+name",
             { modify_audit_value => 1}, 
         );
-        
+    
         sub modify_audit_name{
             my ($self, $value) = @_;
             $value =~ tr/A-Z/a-z/;
@@ -360,7 +359,7 @@ TODO
     *   add auto-deploy of schema if it doesn't exist
 
     *   add more convenience method(s) for retrieving changes from the Audit
-        Log schema
+        Log schema (eg. get a changeset instead of just a list of changes)
 
 SEE ALSO
     *   DBIx::Class

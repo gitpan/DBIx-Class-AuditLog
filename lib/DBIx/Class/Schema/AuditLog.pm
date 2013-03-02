@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog;
 {
-  $DBIx::Class::Schema::AuditLog::VERSION = '0.4.0';
+  $DBIx::Class::Schema::AuditLog::VERSION = '0.4.1';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -80,17 +80,17 @@ sub txn_do {
 
 
 sub audited_sources{
-	my $self = shift;
-	grep { $self->class($_)->isa("DBIx::Class::AuditLog") }
-		$self->sources;
+    my $self = shift;
+    grep { $self->class($_)->isa("DBIx::Class::AuditLog") }
+        $self->sources;
 }
-	
+
 
 sub audited_source {
-	my $source = shift->source(@_);
+    my $source = shift->source(@_);
 
-	return $source if $source && $source->isa("DBIx::Class::AuditLog");
-	return 0;
+    return $source if $source && $source->isa("DBIx::Class::AuditLog");
+    return 0;
 }
 
 sub find_or_create_audit_log_schema_template {
@@ -138,7 +138,7 @@ DBIx::Class::Schema::AuditLog
 
 =head1 VERSION
 
-version 0.4.0
+version 0.4.1
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 
