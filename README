@@ -2,6 +2,11 @@ NAME
     DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 SYNOPSIS
+    NOTE: As of v0.4.2 'quote_names' from DBIx::Class::Storage::DBI is being
+    enabled by the Audit Log. This is to ensure that any of the table or
+    column names used by the Audit Log don't conflict with any reserved
+    words from any database.
+
     Enable the AuditLog schema component in your DBIx::Class::Schema class
     file:
 
@@ -15,7 +20,7 @@ SYNOPSIS
 
         package My::Schema::Result::Table
         use base qw/DBIx::Class::Core/;
- 
+
         __PACKAGE__->load_components(qw/AuditLog/);
 
     If you want to use methods created by DBIx::Class::Relationship::Base,

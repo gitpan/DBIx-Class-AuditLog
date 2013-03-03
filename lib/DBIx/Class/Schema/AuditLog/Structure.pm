@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.4.1';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.4.2';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -152,7 +152,7 @@ sub get_changes {
         }
 
         my $changes = $actions->search_related( 'Change', $criteria,
-            { order_by => 'me.id ' . $change_order, } );
+            { order_by => { "-$change_order" => 'me.id' } } );
         return $changes;
     }
 
@@ -171,7 +171,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.4.1
+version 0.4.2
 
 =head2 current_changeset
 
