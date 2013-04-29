@@ -1,6 +1,6 @@
 package DBIx::Class::AuditLog;
 {
-  $DBIx::Class::AuditLog::VERSION = '0.4.2';
+  $DBIx::Class::AuditLog::VERSION = '0.5.0';
 }
 
 use base qw/DBIx::Class/;
@@ -35,11 +35,14 @@ sub update {
     return $self->next::method(@_) if !$enabled;
 
     my $stored_row      = $self->get_from_storage;
-    my %old_data        = $stored_row->get_columns;
     my %new_data        = $self->get_columns;
     my @changed_columns = keys %{ $_[0] || {} };
 
     my $result = $self->next::method(@_);
+
+    return unless $stored_row; # update on deleted row - nothing to log
+
+    my %old_data = $stored_row->get_columns;
 
     if (@changed_columns) {
         @new_data{@changed_columns} = map $self->get_column($_),
@@ -110,9 +113,9 @@ sub _action_setup {
     my $type = shift;
 
     return $self->_audit_log_schema->audit_log_create_action(
-        {   row   => join( '-', $row->id ),
-            table => $row->result_source_instance->name,
-            type  => $type,
+        {   row         => join( '-', $row->id ),
+            table       => $row->result_source_instance->name,
+            action_type => $type,
         }
     );
 }
@@ -131,7 +134,7 @@ sub _store_changes {
             my $field = $table->find_or_create_related( 'Field',
                 { name => $column } );
 
-            my $create_params = { field => $field->id, };
+            my $create_params = { field_id => $field->id, };
 
             if ( $self->_do_modify_audit_value($column) ) {
                 $create_params->{new_value}
@@ -216,7 +219,7 @@ DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 =head1 VERSION
 
-version 0.4.2
+version 0.5.0
 
 =head1 NAME
 
@@ -248,7 +251,7 @@ Creates a new AuditLog Action for a specific type.
 
 Requires:
     row: primary key of the table that is being audited
-    type: action type, 1 of insert/update/delete
+    action_type: action type, 1 of insert/update/delete
 
 =head2 _store_changes
 
@@ -299,6 +302,8 @@ Mark Jubenville <ioncache@gmail.com>
 =head1 CONTRIBUTORS
 
 Lukas Thiemeier <lukast@cpan.org>
+
+Dimitar Petrov <dcpetrov@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

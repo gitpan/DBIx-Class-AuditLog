@@ -4,7 +4,7 @@
       "Mark Jubenville <ioncache@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300025, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -23,11 +23,6 @@
          "requires" : {
             "ExtUtils::MakeMaker" : "6.30",
             "Module::Build" : "0.3601"
-         }
-      },
-      "develop" : {
-         "requires" : {
-            "Test::Pod" : "1.41"
          }
       },
       "runtime" : {
@@ -65,6 +60,6 @@
          "web" : "https://github.com/ioncache/DBIx-Class-AuditLog"
       }
    },
-   "version" : "0.4.2"
+   "version" : "0.5.0"
 }
 

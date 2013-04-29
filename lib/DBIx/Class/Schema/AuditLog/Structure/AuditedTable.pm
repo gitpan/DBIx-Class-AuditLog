@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::AuditedTable;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::AuditedTable::VERSION = '0.4.2';
+  $DBIx::Class::Schema::AuditLog::Structure::AuditedTable::VERSION = '0.5.0';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -32,13 +32,13 @@ __PACKAGE__->add_unique_constraint( [qw/name/] );
 __PACKAGE__->has_many(
     'Field',
     'DBIx::Class::Schema::AuditLog::Structure::Field',
-    { 'foreign.audited_table' => 'self.id' },
+    { 'foreign.audited_table_id' => 'self.id' },
 );
 
 __PACKAGE__->has_many(
     'Action',
     'DBIx::Class::Schema::AuditLog::Structure::Action',
-    { 'foreign.audited_table' => 'self.id' },
+    { 'foreign.audited_table_id' => 'self.id' },
 );
 
 1;
@@ -53,7 +53,7 @@ DBIx::Class::Schema::AuditLog::Structure::AuditedTable
 
 =head1 VERSION
 
-version 0.4.2
+version 0.5.0
 
 =head1 AUTHOR
 

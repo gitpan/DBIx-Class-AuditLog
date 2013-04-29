@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::User;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::User::VERSION = '0.4.2';
+  $DBIx::Class::Schema::AuditLog::Structure::User::VERSION = '0.5.0';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -30,7 +30,7 @@ __PACKAGE__->add_unique_constraint( constraint_name => [qw/name/], );
 __PACKAGE__->has_many(
     'Changeset',
     'DBIx::Class::Schema::AuditLog::Structure::Changeset',
-    { 'foreign.user' => 'self.id' },
+    { 'foreign.user_id' => 'self.id' },
 );
 
 1;
@@ -45,7 +45,7 @@ DBIx::Class::Schema::AuditLog::Structure::User
 
 =head1 VERSION
 
-version 0.4.2
+version 0.5.0
 
 =head1 AUTHOR
 

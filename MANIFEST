@@ -29,6 +29,7 @@ t/007_resultset-loadcomponent.t
 t/008_relationships.t
 t/009_recursive-update.t
 t/010_bug_undef_columns_logged.t
+t/011_update_on_deleted_row.t
 t/lib/AuditTest/Schema.pm
 t/lib/AuditTest/Schema/Result/User.pm
 t/lib/AuditTest/Schema/Result/UserForceaudit.pm
@@ -36,6 +37,9 @@ t/lib/AuditTest/Schema/Result/UserModifyAuditvalue.pm
 t/lib/AuditTest2/Schema.pm
 t/lib/AuditTest2/Schema/Result/User.pm
 t/lib/AuditTest2/Schema/ResultSet/User.pm
+t/lib/AuditTestCascade/Schema.pm
+t/lib/AuditTestCascade/Schema/Result/Book.pm
+t/lib/AuditTestCascade/Schema/Result/Title.pm
 t/lib/AuditTestRU/Schema.pm
 t/lib/AuditTestRU/Schema/ResultSet/Book.pm
 t/lib/AuditTestRel/Schema.pm

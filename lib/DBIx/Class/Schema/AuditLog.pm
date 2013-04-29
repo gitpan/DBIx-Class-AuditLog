@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog;
 {
-  $DBIx::Class::Schema::AuditLog::VERSION = '0.4.2';
+  $DBIx::Class::Schema::AuditLog::VERSION = '0.5.0';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -16,28 +16,6 @@ __PACKAGE__->mk_classdata('audit_log_connection');
 __PACKAGE__->mk_classdata('audit_log_schema');
 __PACKAGE__->mk_classdata('audit_log_schema_template');
 __PACKAGE__->mk_classdata('audit_log_storage_type');
-
-
-sub connect {
-    my $self = shift;
-
-    # ensure that %dbi_params is part of the connection info
-    if ( scalar(@_) < 4 ) {
-        my $new_indices = 4 - scalar(@_);
-        for ( my $i = 1 ; $i < $new_indices ; $i++ ) {
-            if ( $i == $new_indices ) {
-                push @_, {};
-            }
-            else {
-                push @_, '';
-            }
-        }
-    }
-
-    $_[3]->{quote_names} = 1;
-
-    return $self->next::method(@_);
-}
 
 sub connection {
     my $self = shift;
@@ -160,14 +138,9 @@ DBIx::Class::Schema::AuditLog
 
 =head1 VERSION
 
-version 0.4.2
+version 0.5.0
 
 =head1 DBIx::Class OVERRIDDEN METHODS
-
-=head2 connect
-
-Enable quote_names so that any possible reserved names of columns in the
-Audit Log Schema are protected.
 
 =head2 connection
 

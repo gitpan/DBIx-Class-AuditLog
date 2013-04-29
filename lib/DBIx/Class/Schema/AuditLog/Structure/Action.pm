@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Action;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Action::VERSION = '0.4.2';
+  $DBIx::Class::Schema::AuditLog::Structure::Action::VERSION = '0.5.0';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -16,11 +16,11 @@ __PACKAGE__->add_columns(
         'is_auto_increment' => 1,
         'is_nullable'       => 0,
     },
-    'changeset' => {
+    'changeset_id' => {
         'data_type'   => 'integer',
         'is_nullable' => 0,
     },
-    'audited_table' => {
+    'audited_table_id' => {
         'data_type'   => 'integer',
         'is_nullable' => 0,
     },
@@ -29,7 +29,7 @@ __PACKAGE__->add_columns(
         'is_nullable' => 0,
         'size'        => 255,
     },
-    'type' => {
+    'action_type' => {
         'data_type'   => 'varchar',
         'is_nullable' => 0,
         'size'        => 10,
@@ -41,19 +41,19 @@ __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to(
     'Changeset',
     'DBIx::Class::Schema::AuditLog::Structure::Changeset',
-    { 'foreign.id' => 'self.changeset' },
+    { 'foreign.id' => 'self.changeset_id' },
 );
 
 __PACKAGE__->belongs_to(
     'AuditedTable',
     'DBIx::Class::Schema::AuditLog::Structure::AuditedTable',
-    { 'foreign.id' => 'self.audited_table' },
+    { 'foreign.id' => 'self.audited_table_id' },
 );
 
 __PACKAGE__->has_many(
     'Change',
     'DBIx::Class::Schema::AuditLog::Structure::Change',
-    { 'foreign.action' => 'self.id' },
+    { 'foreign.action_id' => 'self.id' },
 );
 
 1;
@@ -68,7 +68,7 @@ DBIx::Class::Schema::AuditLog::Structure::Action
 
 =head1 VERSION
 
-version 0.4.2
+version 0.5.0
 
 =head1 AUTHOR
 
