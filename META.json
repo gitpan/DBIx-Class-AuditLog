@@ -60,6 +60,6 @@
          "web" : "https://github.com/ioncache/DBIx-Class-AuditLog"
       }
    },
-   "version" : "0.5.0"
+   "version" : "0.5.1"
 }
 
