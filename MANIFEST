@@ -48,3 +48,6 @@ t/lib/AuditTestRel/Schema/Result/BookAuthor.pm
 t/lib/AuditTestRel/Schema/Result/Person.pm
 t/lib/AuditTestRel/Schema/Result/Title.pm
 t/release-pod-syntax.t
+utils/generate_dbic_schema.pl
+utils/test_schema.pl
+utils/update_reserved_columns.pl
