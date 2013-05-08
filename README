@@ -56,7 +56,7 @@ SYNOPSIS
         );
 
     Optionally pass an extra hashref to the txn_do method to indicate a user
-    and/or a description for the transaction:
+    (or user_id) and/or a description for the transaction:
 
         $my_schema->txn_do(
             sub {
@@ -67,6 +67,8 @@ SYNOPSIS
                 description => 'description of transaction' # optional
             }
         );
+
+    The user/user_id will be stored in AuditLogUser->name.
 
 DESCRIPTION
     DBIx::Class::AuditLog is meant for tracking changes made to specific

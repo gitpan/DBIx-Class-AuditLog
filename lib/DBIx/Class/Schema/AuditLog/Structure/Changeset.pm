@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Changeset;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Changeset::VERSION = '0.5.2';
+  $DBIx::Class::Schema::AuditLog::Structure::Changeset::VERSION = '0.5.4';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -40,6 +40,7 @@ __PACKAGE__->belongs_to(
     'User',
     'DBIx::Class::Schema::AuditLog::Structure::User',
     { 'foreign.id' => 'self.user_id' },
+    { join_type => 'left' },
 );
 
 __PACKAGE__->has_many(
@@ -60,7 +61,7 @@ DBIx::Class::Schema::AuditLog::Structure::Changeset
 
 =head1 VERSION
 
-version 0.5.2
+version 0.5.4
 
 =head1 AUTHOR
 
