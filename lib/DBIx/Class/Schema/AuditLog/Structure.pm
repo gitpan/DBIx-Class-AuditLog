@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.5.4';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.5.5';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -126,24 +126,28 @@ sub get_changes {
         if $field_name;
     my $table = $self->resultset('AuditLogAuditedTable')
         ->find( { name => $table_name }, $table_criteria );
-    my $field = $table->find_related( 'Field', { name => $field_name } )
-        if $field_name;
 
     # cannot get changes if the specified table hasn't been logged
     return unless defined $table;
 
+    my $field = $table->find_related( 'Field', { name => $field_name } )
+        if $field_name;
+
     my $changeset_criteria = {};
     $changeset_criteria->{created_on} = $timestamp if $timestamp;
-    my $changesets = $self->resultset('AuditLogChangeset')
-        ->search_rs( $changeset_criteria, { prefetch => 'Action' } );
+    my $changesets = $self->resultset('AuditLogChangeset')->search_rs(
+        $changeset_criteria,
+        {
+            prefetch   => 'User'
+        }
+    );
 
     my $actions = $changesets->search_related(
         'Action',
         {   'Action.audited_table_id' => $table->id,
             'Action.audited_row'      => $audited_row,
             'Action.action_type'      => $action_types,
-        },
-        { prefetch => 'Change' }
+        }
     );
 
     if ( $actions != 0 ) {
@@ -159,8 +163,7 @@ sub get_changes {
             'Change',
             $criteria,
             {   order_by   => { "-$change_order" => 'me.id' },
-                '+columns' => ['Field.name'],
-                join       => ['Field']
+                prefetch   => [{ 'Action' => 'Changeset'}, { 'Field' => 'AuditedTable' }],
             }
         );
         return $changes;
@@ -182,7 +185,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.5.4
+version 0.5.5
 
 =head2 current_changeset
 
