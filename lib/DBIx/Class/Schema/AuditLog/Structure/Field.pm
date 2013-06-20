@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure::Field;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::Field::VERSION = '0.5.5';
+  $DBIx::Class::Schema::AuditLog::Structure::Field::VERSION = '0.5.6';
 }
 
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
@@ -53,7 +53,7 @@ DBIx::Class::Schema::AuditLog::Structure::Field
 
 =head1 VERSION
 
-version 0.5.5
+version 0.5.6
 
 =head1 AUTHOR
 

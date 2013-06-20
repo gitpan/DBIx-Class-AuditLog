@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.5.5';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.5.6';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -136,10 +136,7 @@ sub get_changes {
     my $changeset_criteria = {};
     $changeset_criteria->{created_on} = $timestamp if $timestamp;
     my $changesets = $self->resultset('AuditLogChangeset')->search_rs(
-        $changeset_criteria,
-        {
-            prefetch   => 'User'
-        }
+        $changeset_criteria
     );
 
     my $actions = $changesets->search_related(
@@ -163,7 +160,7 @@ sub get_changes {
             'Change',
             $criteria,
             {   order_by   => { "-$change_order" => 'me.id' },
-                prefetch   => [{ 'Action' => 'Changeset'}, { 'Field' => 'AuditedTable' }],
+                prefetch   => [{ 'Action' => { 'Changeset' => 'User' } }, { 'Field' => 'AuditedTable' }],
             }
         );
         return $changes;
@@ -185,7 +182,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.5.5
+version 0.5.6
 
 =head2 current_changeset
 
