@@ -1,6 +1,6 @@
 package DBIx::Class::ResultSet::AuditLog;
 {
-  $DBIx::Class::ResultSet::AuditLog::VERSION = '0.5.6';
+  $DBIx::Class::ResultSet::AuditLog::VERSION = '0.6.0';
 }
 
 use strict;
@@ -30,7 +30,7 @@ DBIx::Class::ResultSet::AuditLog
 
 =head1 VERSION
 
-version 0.5.6
+version 0.6.0
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog;
 {
-  $DBIx::Class::Schema::AuditLog::VERSION = '0.5.6';
+  $DBIx::Class::Schema::AuditLog::VERSION = '0.6.0';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -112,7 +112,7 @@ sub find_or_create_audit_log_schema_template {
 
     my $prefix = 'AuditLog';
     foreach my $audit_log_table (
-        qw< Action Change Changeset Field AuditedTable User>)
+        qw< Action Change Changeset Field AuditedTable User View >)
     {
         my $class = blessed($schema) . "::$audit_log_table";
 
@@ -138,7 +138,7 @@ DBIx::Class::Schema::AuditLog
 
 =head1 VERSION
 
-version 0.5.6
+version 0.6.0
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 

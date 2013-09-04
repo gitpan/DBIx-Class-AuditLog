@@ -1,6 +1,6 @@
 package DBIx::Class::Schema::AuditLog::Structure;
 {
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.5.6';
+  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.6.0';
 }
 
 use base qw/DBIx::Class::Schema/;
@@ -14,6 +14,7 @@ require DBIx::Class::Schema::AuditLog::Structure::Change;
 require DBIx::Class::Schema::AuditLog::Structure::Changeset;
 require DBIx::Class::Schema::AuditLog::Structure::Field;
 require DBIx::Class::Schema::AuditLog::Structure::User;
+require DBIx::Class::Schema::AuditLog::Structure::View;
 
 __PACKAGE__->mk_group_accessors( simple => '_current_changeset_container' );
 
@@ -182,7 +183,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.5.6
+version 0.6.0
 
 =head2 current_changeset
 
