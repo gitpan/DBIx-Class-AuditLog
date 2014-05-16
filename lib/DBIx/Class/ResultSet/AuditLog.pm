@@ -1,8 +1,5 @@
 package DBIx::Class::ResultSet::AuditLog;
-{
-  $DBIx::Class::ResultSet::AuditLog::VERSION = '0.6.0';
-}
-
+$DBIx::Class::ResultSet::AuditLog::VERSION = '0.6.1';
 use strict;
 use warnings;
 
@@ -24,13 +21,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 DBIx::Class::ResultSet::AuditLog
 
 =head1 VERSION
 
-version 0.6.0
+version 0.6.1
 
 =head1 SYNOPSIS
 

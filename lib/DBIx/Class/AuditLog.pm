@@ -1,8 +1,5 @@
 package DBIx::Class::AuditLog;
-{
-  $DBIx::Class::AuditLog::VERSION = '0.6.0';
-}
-
+$DBIx::Class::AuditLog::VERSION = '0.6.1';
 use base qw/DBIx::Class/;
 
 use strict;
@@ -213,13 +210,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 DBIx::Class::AuditLog - Simple activity audit logging for DBIx::Class
 
 =head1 VERSION
 
-version 0.6.0
+version 0.6.1
 
 =head1 NAME
 

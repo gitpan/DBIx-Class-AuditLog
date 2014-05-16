@@ -1,8 +1,5 @@
 package DBIx::Class::Schema::AuditLog::Structure::User;
-{
-  $DBIx::Class::Schema::AuditLog::Structure::User::VERSION = '0.6.0';
-}
-
+$DBIx::Class::Schema::AuditLog::Structure::User::VERSION = '0.6.1';
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
 
 use strict;
@@ -39,13 +36,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 DBIx::Class::Schema::AuditLog::Structure::User
 
 =head1 VERSION
 
-version 0.6.0
+version 0.6.1
 
 =head1 AUTHOR
 

@@ -1,8 +1,5 @@
 package DBIx::Class::Schema::AuditLog::Structure;
-{
-  $DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.6.0';
-}
-
+$DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.6.1';
 use base qw/DBIx::Class::Schema/;
 
 use strict;
@@ -157,7 +154,7 @@ sub get_changes {
             $criteria->{field_id} = $field ? $field->id : -1;
         }
 
-        my $changes = $actions->search_related(
+        my $changes = $actions->search_related_rs(
             'Change',
             $criteria,
             {   order_by   => { "-$change_order" => 'me.id' },
@@ -177,13 +174,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.6.0
+version 0.6.1
 
 =head2 current_changeset
 

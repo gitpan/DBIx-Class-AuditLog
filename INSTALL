@@ -22,6 +22,20 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 
 ## Manual installation
 
+As a last resort, you can manually install it. Download the tarball, untar it,
+then build it:
+
+    % perl Build.PL
+    % ./Build && ./Build test
+
+Then install it:
+
+    % ./Build install
+
+If you are installing into a system-wide directory, you may need to run:
+
+    % sudo ./Build install
+
 ## Documentation
 
 DBIx-Class-AuditLog documentation is available as POD.
