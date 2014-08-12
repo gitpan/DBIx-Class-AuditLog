@@ -1,5 +1,5 @@
 package DBIx::Class::Schema::AuditLog;
-$DBIx::Class::Schema::AuditLog::VERSION = '0.6.1';
+$DBIx::Class::Schema::AuditLog::VERSION = '0.6.2';
 use base qw/DBIx::Class::Schema/;
 
 use strict;
@@ -137,7 +137,7 @@ DBIx::Class::Schema::AuditLog
 
 =head1 VERSION
 
-version 0.6.1
+version 0.6.2
 
 =head1 DBIx::Class OVERRIDDEN METHODS
 

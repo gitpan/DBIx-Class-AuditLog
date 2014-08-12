@@ -1,5 +1,5 @@
 package DBIx::Class::Schema::AuditLog::Structure::View;
-$DBIx::Class::Schema::AuditLog::Structure::View::VERSION = '0.6.1';
+$DBIx::Class::Schema::AuditLog::Structure::View::VERSION = '0.6.2';
 use base 'DBIx::Class::Schema::AuditLog::Structure::Base';
 
 use strict;
@@ -115,7 +115,7 @@ DBIx::Class::Schema::AuditLog::Structure::View
 
 =head1 VERSION
 
-version 0.6.1
+version 0.6.2
 
 =head1 AUTHOR
 

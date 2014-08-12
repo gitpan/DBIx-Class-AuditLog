@@ -1,5 +1,5 @@
 package DBIx::Class::Schema::AuditLog::Structure;
-$DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.6.1';
+$DBIx::Class::Schema::AuditLog::Structure::VERSION = '0.6.2';
 use base qw/DBIx::Class::Schema/;
 
 use strict;
@@ -132,7 +132,7 @@ sub get_changes {
         if $field_name;
 
     my $changeset_criteria = {};
-    $changeset_criteria->{created_on} = $timestamp if $timestamp;
+    $changeset_criteria->{'me.created_on'} = $timestamp if $timestamp;
     my $changesets = $self->resultset('AuditLogChangeset')->search_rs(
         $changeset_criteria
     );
@@ -182,7 +182,7 @@ DBIx::Class::Schema::AuditLog::Structure
 
 =head1 VERSION
 
-version 0.6.1
+version 0.6.2
 
 =head2 current_changeset
 
